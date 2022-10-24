@@ -1,0 +1,27 @@
+#profileHeaderDiv{
+    position: relative;
+    display: flex ;
+    align-items: center;
+    width: 100%;
+    height: max-content;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+#profileHeaderContentDiv{
+    margin-top: 10px;
+    width: 85%;
+    height: 90%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 10px;
+}
+#nameUser{
+    margin-top: 0;
+    margin-bottom: 5px;
+    text-align: center;
+}
+#photoUser{
+    width: 100%;
+    /*aspect-ratio: 1051/1280;*/
+}
