@@ -1,6 +1,7 @@
-import {Column, DataType, HasMany, Model, Table} from "sequelize-typescript";
+import {BelongsToMany, Column, DataType, HasMany, Model, Table} from "sequelize-typescript";
 import {Post} from "../posts/posts.model";
 import {Comment} from '../comments/comments.model'
+import {PostLike} from "../posts/posts.likes.model";
 
 interface UsersCreationAttrs{
     readonly login: string;
@@ -36,5 +37,8 @@ export class User extends Model<User, UsersCreationAttrs>{
 
     @HasMany(() => Comment)
     comments: Comment[];
+
+    // @BelongsToMany( () => Post, () => PostLike)
+    // likedPosts: Post[];
 
 }

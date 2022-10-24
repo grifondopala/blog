@@ -9,7 +9,7 @@ export class CommentsController {
     constructor (private commentService: CommentsService) {}
 
     @Post('/create')
-    Create(dto: CreateCommentDto){
+    Create(@Body() dto: CreateCommentDto){
         return this.commentService.create(dto);
     }
 

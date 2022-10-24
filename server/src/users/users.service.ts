@@ -1,8 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import {CreateUserDto} from "./dto/create.user.dto";
 import {AuthUserDto} from "./dto/auth.user.dto";
-import { InjectModel } from '@nestjs/sequelize'
+import {InjectModel} from '@nestjs/sequelize'
 import {User} from "./users.model";
+import {Post} from "../posts/posts.model";
+import {PostLike} from "../posts/posts.likes.model";
 
 @Injectable()
 export class UsersService {
@@ -14,7 +16,14 @@ export class UsersService {
     }
 
     async getUser(userId: number){
-        return await this.userRepository.findOne({where: {id: userId}})
+        return await this.userRepository.findOne({where: {id: userId},
+                                                         include: [{model: Post,
+                                                                    separate: true,
+                                                                    order: [['id', 'DESC']],
+                                                                    include: [{model: PostLike,
+                                                                               attributes: ['id'],
+                                                                               include: [{model: User, attributes: ['login']}]}]}],
+                                                         attributes: ['id', 'first_name', 'last_name', 'avatar_src', 'login']})
     }
 
     async auth(dto: AuthUserDto): Promise<boolean>{

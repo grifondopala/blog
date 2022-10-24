@@ -9,6 +9,7 @@ import {CommentLike} from "./comments/comments.likes";
 import {CommentsModule} from "./comments/comments.module";
 import {PostsModule} from "./posts/posts.module";
 import {SequelizeModule} from "@nestjs/sequelize";
+import {ServeStaticModule} from "@nestjs/serve-static";
 
 @Module({
   controllers: [],
@@ -23,6 +24,9 @@ import {SequelizeModule} from "@nestjs/sequelize";
       database: 'blog',
       models: [Post, Comment, PostLike, User, CommentLike],
       autoLoadModels: true,
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
     }),
     PostsModule,
     UsersModule,

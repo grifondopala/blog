@@ -1,4 +1,4 @@
-import { Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
+import {BelongsTo, Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
 import {Post} from "./posts.model";
 import {User} from "../users/users.model";
 
@@ -9,11 +9,13 @@ export class PostLike extends Model<PostLike>{
     id: number;
 
     @ForeignKey(() => User)
-    @Column({type: DataType.INTEGER, allowNull: false})
-    userId: number;
+    userId: number
+    @BelongsTo(() => User)
+    user: User;
 
     @ForeignKey(() => Post)
-    @Column({type: DataType.INTEGER, allowNull: false})
     postId: number
+    @BelongsTo(() => Post)
+    post: Post;
 
 }

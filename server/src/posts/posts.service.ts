@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import {Body, Injectable} from '@nestjs/common';
 import {CreatePostDto} from "./dto/create.post.dto";
 import {User} from "../users/users.model";
 import {InjectModel} from "@nestjs/sequelize";
@@ -22,12 +22,17 @@ export class PostsService {
     async like(dto: LikePostDto): Promise<void>{
         const user = await this.userRepository.findOne({where: {login: dto.login}});
         const postLike = await this.postLikeRepository.findOne({where: {userId: user.id, postId: dto.postId}})
-        if(!!postLike) { postLike.destroy() }
-        else { this.postLikeRepository.create({userId: user.id, postId: dto.postId})}
+        if(postLike) { await postLike.destroy() }
+        else { await this.postLikeRepository.create({userId: user.id, postId: dto.postId})}
     }
 
     async delete(postId: number): Promise<void>{
         await this.postRepository.destroy({where: {id: postId}})
     }
+
+    async getAll(){
+        return await this.postRepository.findAll({include: {all: true}})
+    }
+
 
 }
