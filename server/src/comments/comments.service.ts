@@ -15,7 +15,8 @@ export class CommentsService {
 
 
     async create(dto: CreateCommentDto): Promise<void>{
-        await this.commentRepository.create({text: dto.text, userId: dto.userId, postId: dto.postId})
+        const user = await this.userRepository.findOne({where: {login: dto.userLogin}})
+        await this.commentRepository.create({text: dto.text, userId: user.id, postId: dto.postId})
     }
 
     async delete(postId: number): Promise<void>{

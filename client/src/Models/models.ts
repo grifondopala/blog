@@ -1,4 +1,5 @@
 export interface User{
+    readonly id: number;
     readonly login: string;
     readonly password: string;
     readonly first_name: string;
@@ -13,6 +14,14 @@ export interface Post{
     readonly createdAt: string;
     readonly userId: number;
     readonly likedUsers: likeUser[];
+    readonly comments: Comment[];
+}
+
+export interface Comment{
+    readonly id: number;
+    readonly text: string;
+    readonly createdAt: string;
+    readonly user: User;
 }
 
 interface likeUser{

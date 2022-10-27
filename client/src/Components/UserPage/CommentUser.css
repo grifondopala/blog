@@ -1,0 +1,29 @@
+#commentMainDiv{
+    position: relative;
+    display: flex;
+    margin-top: 0;
+    width: 100%;
+    height: max-content;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
+}
+#commentUserPhoto{
+    width: 50px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+}
+#commentUserName{
+    height: auto;
+    margin: 0;
+    text-decoration: none;
+    color: #447bba;
+}
+#commentText{
+    margin: 0;
+}
+#commentTextDiv{
+    width: 100%;
+    margin-left: 10px;
+}

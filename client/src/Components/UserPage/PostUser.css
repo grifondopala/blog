@@ -7,9 +7,9 @@
     background-color: white;
     margin-left: auto;
     margin-right: auto;
-    border-radius: 5px;
+    border-radius: 5px 5px 0 0;
     box-shadow: 0 10px 10px rgba(0,0,0,0.22);
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 .postContentDiv{
     margin-bottom: 10px;
@@ -66,4 +66,37 @@
     margin-left: auto;
     margin-right: 0;
     cursor: pointer;
+}
+.commentsMainDiv{
+    position: relative;
+    display: grid;
+    margin-top: 0;
+    width: 90%;
+    height: max-content;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.22);
+    margin-bottom: 20px;
+}
+#commentInput{
+    width: 80%;
+    height: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#writeCommentDiv{
+    display: flex;
+    align-items: center;
+}
+#createCommentImg{
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+#writeCommentPhoto{
+    width: 50px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
 }
