@@ -2,6 +2,7 @@ import {BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table} from "se
 
 import {Post} from '../posts/posts.model'
 import {User} from "../users/users.model";
+import {CommentLike} from "./comments.likes";
 
 interface CommentsCreationAttrs{
     readonly text: string;
@@ -27,5 +28,8 @@ export class Comment extends Model<Comment, CommentsCreationAttrs>{
     postId: number
     @BelongsTo(() => Post)
     post: Post;
+
+    @HasMany(() => CommentLike)
+    likedUsers: CommentLike[];
 
 }

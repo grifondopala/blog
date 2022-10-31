@@ -10,6 +10,7 @@ import {CommentsModule} from "./comments/comments.module";
 import {PostsModule} from "./posts/posts.module";
 import {SequelizeModule} from "@nestjs/sequelize";
 import {ServeStaticModule} from "@nestjs/serve-static";
+import {Friends} from "./users/friends.model";
 
 @Module({
   controllers: [],
@@ -22,7 +23,7 @@ import {ServeStaticModule} from "@nestjs/serve-static";
       username: 'root',
       password: '',
       database: 'blog',
-      models: [Post, Comment, PostLike, User, CommentLike],
+      models: [Post, Comment, PostLike, User, CommentLike, Friends],
       autoLoadModels: true,
     }),
     ServeStaticModule.forRoot({

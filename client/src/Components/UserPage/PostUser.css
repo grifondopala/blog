@@ -51,11 +51,16 @@
 .buttonPostPhoto{
     height: 24px;
     width: 24px;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 .buttonPostCounter{
     width: 16px;
     height: 24px;
     text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 18px;
 }
 .topPostDiv{
     display: flex;
@@ -83,7 +88,7 @@
 #commentInput{
     width: 80%;
     height: 30px;
-    margin-left: auto;
+    margin-left: 10px;
     margin-right: auto;
 }
 #writeCommentDiv{

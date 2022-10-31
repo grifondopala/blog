@@ -95,7 +95,7 @@ export function PostUser(props: PostUserProp) {
             <div className='commentsMainDiv'>
                 <div className='postContentDiv'>
                     {props.post.comments.map((comment) => (
-                        <CommentUser key={comment.id} comment={comment}></CommentUser>
+                        <CommentUser key={comment.id} myLogin={props.myLogin} comment={comment}></CommentUser>
                     ))}
                     <div id={'writeCommentDiv'}>
                         <img id='writeCommentPhoto' src={'http://localhost:5000/avatars/miha.jpg'}/>

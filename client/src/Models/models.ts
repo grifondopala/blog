@@ -22,6 +22,12 @@ export interface Comment{
     readonly text: string;
     readonly createdAt: string;
     readonly user: User;
+    readonly likedUsers: likeComment[];
+}
+
+interface likeComment{
+    readonly id: number;
+    readonly user: User;
 }
 
 interface likeUser{

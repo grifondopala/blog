@@ -38,7 +38,4 @@ export class User extends Model<User, UsersCreationAttrs>{
     @HasMany(() => Comment)
     comments: Comment[];
 
-    // @BelongsToMany( () => Post, () => PostLike)
-    // likedPosts: Post[];
-
 }

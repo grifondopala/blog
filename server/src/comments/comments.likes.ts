@@ -1,4 +1,4 @@
-import { Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
+import {BelongsTo, Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
 import {Comment} from "./comments.model";
 import {User} from "../users/users.model";
 
@@ -9,11 +9,14 @@ export class CommentLike extends Model<CommentLike>{
     id: number;
 
     @ForeignKey(() => User)
-    @Column({type: DataType.INTEGER, allowNull: false})
-    userId: number;
+    userId: number
+    @BelongsTo(() => User)
+    user: User;
 
     @ForeignKey(() => Comment)
-    @Column({type: DataType.INTEGER, allowNull: false})
-    commentId: number;
+    commentId: number
+    @BelongsTo(() => Comment)
+    comment: Comment;
+
 
 }
