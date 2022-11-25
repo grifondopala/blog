@@ -4,12 +4,16 @@ import axios from 'axios';
 import './PostUser.css'
 import {CommentUser} from "./CommentUser";
 
+
+const REACT_APP_SERVER = process.env["REACT_APP_SERVER"];
+
 interface PostUserProp {
     post: Post;
     first_name: string;
     last_name: string;
-    myLogin: string;
-    loginUser: string;
+    userId: number;
+    myId: number | null;
+    myAvatarSrc: string | null;
 
     updatePosts: () => void;
 }
@@ -19,31 +23,26 @@ export function PostUser(props: PostUserProp) {
     const day = props.post.createdAt.split('T')[0].split('-');
     const time = props.post.createdAt.split('T')[1].split(':');
 
-    const [liked, setLiked] = React.useState(props.post.likedUsers.some((e) => e.user.login === props.myLogin))
+    const [liked, setLiked] = React.useState(props.post.likedUsers.some((e) => e.user.id === props.myId))
     const [countLike, setCountLike] = React.useState(props.post.likedUsers.length)
     const [countComment, setCountComment] = React.useState(props.post.comments.length)
 
     const [newCommentText, setNewCommentText] = React.useState('')
 
     const like = () => {
-        if (liked) {
-            setCountLike(countLike - 1);
-        } else {
-            setCountLike(countLike + 1);
-        }
+        liked ? setCountLike(countLike - 1) : setCountLike(countLike + 1);
         setLiked(!liked);
         axios({
             method: 'post',
-            url: 'http://localhost:5000/posts/like',
-            data: {login: props.myLogin, postId: props.post.id}
-        }).then(res => {
-        })
+            url: `${REACT_APP_SERVER}/posts/like`,
+            data: {userId: props.myId, postId: props.post.id}
+        }).then(res => { })
     }
 
     const deletePost = () => {
         axios({
             method: 'post',
-            url: 'http://localhost:5000/posts/delete',
+            url: `${REACT_APP_SERVER}/posts/delete`,
             data: {postId: props.post.id}
         }).then(res => {
             props.updatePosts();
@@ -54,10 +53,11 @@ export function PostUser(props: PostUserProp) {
         if (newCommentText.length > 0) {
             axios({
                 method: 'post',
-                url: 'http://localhost:5000/comments/create',
-                data: {postId: props.post.id, text: newCommentText, userLogin: props.myLogin}
+                url: `${REACT_APP_SERVER}/comments/create`,
+                data: {postId: props.post.id, text: newCommentText, userId: props.myId}
             }).then(res => {
                 setCountComment(countComment + 1);
+                setNewCommentText('');
                 props.updatePosts();
             })
         }
@@ -69,7 +69,7 @@ export function PostUser(props: PostUserProp) {
                 <div className='postContentDiv'>
                     <div className='topPostDiv'>
                         <p className='nameUserPost'>{props.first_name} {props.last_name}</p>
-                        {props.loginUser === props.myLogin && (
+                        {props.userId === props.myId && (
                             <img className='deletePostImg' src={'/icons/delete.png'} onClick={deletePost}/>
                         )}
                     </div>
@@ -95,14 +95,16 @@ export function PostUser(props: PostUserProp) {
             <div className='commentsMainDiv'>
                 <div className='postContentDiv'>
                     {props.post.comments.map((comment) => (
-                        <CommentUser key={comment.id} myLogin={props.myLogin} comment={comment}></CommentUser>
+                        <CommentUser key={comment.id} myId={props.myId} comment={comment}></CommentUser>
                     ))}
-                    <div id={'writeCommentDiv'}>
-                        <img id='writeCommentPhoto' src={'http://localhost:5000/avatars/miha.jpg'}/>
-                        <input id={'commentInput'} placeholder={'Написать комментарий...'}
-                               onInput={(e) => setNewCommentText((e.target as HTMLInputElement).value)}/>
-                        <img id={'createCommentImg'} src={'/icons/sendIcon.png'} onClick={writeNewComment}/>
-                    </div>
+                    {props.myId && (
+                        <div id={'writeCommentDiv'}>
+                            <img id='writeCommentPhoto' src={`${REACT_APP_SERVER}/${props.myAvatarSrc}`}/>
+                            <input id={'commentInput'} placeholder={'Написать комментарий...'} value={newCommentText}
+                                   onInput={(e) => setNewCommentText((e.target as HTMLInputElement).value)}/>
+                            <img id={'createCommentImg'} src={'/icons/sendIcon.png'} onClick={writeNewComment}/>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

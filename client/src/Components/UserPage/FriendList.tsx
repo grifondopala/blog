@@ -1,7 +1,8 @@
 import * as React from 'react'
 import './FriendList.css'
-import axios from 'axios'
 import {User} from "../../Models/models";
+
+const REACT_APP_SERVER = process.env["REACT_APP_SERVER"];
 
 interface FriendListProps {
     readonly friendList: [User] | undefined;
@@ -16,7 +17,7 @@ export function FriendList(props: FriendListProps) {
     function FriendDiv(propsFriend: FriendDivProps) {
         return (
             <div id={'mainFriendDiv'}>
-                <img id={'photoFriend'} src={`http://localhost:5000${propsFriend.user.avatar_src}`}/>
+                <img id={'photoFriend'} src={`${REACT_APP_SERVER}/${propsFriend.user.avatar_src}`}/>
                 <a href={`/user/${propsFriend.user.id}`}
                    id={'usernameFriend'}>{propsFriend.user.first_name} {propsFriend.user.last_name}</a>
             </div>
@@ -27,6 +28,9 @@ export function FriendList(props: FriendListProps) {
         <div id={'mainFriendListDiv'}>
             <div id={'contentFriendListDiv'}>
                 <p id={'titleFriendList'}>Список друзей</p>
+                {props.friendList && (
+                    <p id={'titleFriendList'}>Пусто</p>
+                )}
                 {props.friendList?.map((user) => (
                     <FriendDiv user={user}/>
                 ))}

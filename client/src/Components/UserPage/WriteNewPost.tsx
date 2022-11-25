@@ -2,9 +2,10 @@ import * as React from 'react'
 import './WriteNewPost.css'
 import axios from "axios";
 
-interface WriteNewPostProps{
-    myLogin: string;
+const REACT_APP_SERVER = process.env["REACT_APP_SERVER"];
 
+interface WriteNewPostProps{
+    myId: number | null;
     updatePosts: () => void;
 }
 
@@ -20,8 +21,8 @@ export function WriteNewPost(props: WriteNewPostProps){
     }
 
     const makeNewPost = () => {
-        const data = {login: props.myLogin, text: newPostText}
-        axios({method: 'post', url: `http://localhost:5000/posts/create`, data}).then(res => {
+        const data = {id: props.myId, text: newPostText}
+        axios({method: 'post', url: `${REACT_APP_SERVER}/posts/create`, data}).then(res => {
             props.updatePosts();
             setNewPostText('');
         })
@@ -30,7 +31,7 @@ export function WriteNewPost(props: WriteNewPostProps){
     return(
         <div id='writePostMainDiv'>
             <div id='writePostContentDiv'>
-                <textarea id='textAreaNewPost' placeholder={'Что у вас нового?'} onInput={(e) => textAreaController(e)}></textarea>
+                <textarea id='textAreaNewPost' placeholder={'Что у вас нового?'} value={newPostText} onInput={(e) => textAreaController(e)}></textarea>
                 <div style={{float: "right"}}>
                     <button id='createPostButton' onClick={makeNewPost}>Опубликовать</button>
                 </div>

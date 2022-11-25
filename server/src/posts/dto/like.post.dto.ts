@@ -1,4 +1,4 @@
 export class LikePostDto {
-    readonly login: string;
-    readonly postId: number;
+  readonly userId: number;
+  readonly postId: number;
 }

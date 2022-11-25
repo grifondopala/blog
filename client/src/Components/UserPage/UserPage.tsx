@@ -8,8 +8,11 @@ import {PostUser} from './PostUser';
 import {WriteNewPost} from "./WriteNewPost";
 import {FriendList} from "./FriendList";
 
+const REACT_APP_SERVER = process.env["REACT_APP_SERVER"];
+
 interface  UserPageProps{
-    myLogin: string;
+    myId: number | null;
+    myAvatarSrc: string | null;
 }
 
 export function UserPage(props: UserPageProps){
@@ -25,15 +28,16 @@ export function UserPage(props: UserPageProps){
     }, [userId])
 
     const updatePosts = () => {
-        axios({method: 'get', url: `http://localhost:5000/users/${userId}`}).then(res => {
+        axios({method: 'get', url: `${REACT_APP_SERVER}/users/${userId}`}).then(res => {
             setUser(res.data);
         })
     }
 
+
     const getFriends = () => {
         axios({
             method: 'post',
-            url: `http://localhost:5000/users/getFriends/${userId}`
+            url: `${REACT_APP_SERVER}/users/getFriends/${userId}`
         }).then(res => {
             setFriendList(res.data.friends);
         })
@@ -49,16 +53,17 @@ export function UserPage(props: UserPageProps){
                     <FriendList friendList={friendList}/>
                 </div>
                 <div>
-                    {props.myLogin === user?.login && (
-                        <WriteNewPost myLogin={props.myLogin}
+                    {props.myId && props.myId!.toString() === userId && (
+                        <WriteNewPost myId={props.myId}
                                       updatePosts={updatePosts}/>)}
                     {user?.posts.map((post) => (
-                        <PostUser key={post.id} loginUser={user?.login}
-                                                post={post}
-                                                first_name={user?.first_name}
-                                                last_name={user?.last_name}
-                                                myLogin={props.myLogin}
-                                                updatePosts={updatePosts}/>
+                        <PostUser key={post.id} userId={parseInt(userId!)}
+                                  post={post}
+                                  first_name={user?.first_name}
+                                  last_name={user?.last_name}
+                                  myId={props.myId}
+                                  myAvatarSrc={props.myAvatarSrc}
+                                  updatePosts={updatePosts}/>
                     ))}
                 </div>
             </div>

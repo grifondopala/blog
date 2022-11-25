@@ -27,14 +27,14 @@ export interface Comment{
 
 interface likeComment{
     readonly id: number;
-    readonly user: User;
+    readonly user: userId;
 }
 
 interface likeUser{
     readonly id: number;
-    readonly user: userLogin;
+    readonly user: userId;
 }
 
-interface userLogin{
-    readonly login: string;
+interface userId{
+    readonly id: number;
 }

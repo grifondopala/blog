@@ -1,4 +1,4 @@
-export class AuthUserDto{
-    readonly login: string;
-    readonly password: string;
+export class AuthUserDto {
+  readonly login: string;
+  readonly password: string;
 }

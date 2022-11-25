@@ -1,0 +1,43 @@
+#mainAuthDiv{
+    width: 400px;
+    height: 600px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 15px;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.22);
+}
+#contentAuthDiv{
+    width: 100%;
+    height: 100%;
+}
+#signInDiv{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column wrap;
+}
+#footerButtonsAuth{
+    margin-top: auto;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: space-between;
+}
+#changeStageAuthP{
+    margin-bottom: 0;
+    text-align: center;
+    cursor: pointer;
+}
+
+.inputDivAuth{
+    display: flex;
+    flex-flow: column wrap;
+    margin-top: 20px;
+}
+.authTitle{
+    text-align: center;
+}

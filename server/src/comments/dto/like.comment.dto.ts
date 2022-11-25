@@ -1,4 +1,4 @@
-export class LikeCommentDto{
-    readonly commentId: number;
-    readonly login: string;
+export class LikeCommentDto {
+  readonly commentId: number;
+  readonly userId: number;
 }

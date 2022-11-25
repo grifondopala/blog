@@ -1,4 +1,4 @@
-export class CreatePostDto{
-    readonly login: string;
-    readonly text: string;
+export class CreatePostDto {
+  readonly id: number;
+  readonly text: string;
 }
